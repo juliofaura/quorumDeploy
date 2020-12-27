@@ -1,0 +1,7 @@
+#!/bin/zsh
+foreach i in Node-*
+	do
+	cd $i
+	geth --datadir data init ../genesis.json
+	cd ..
+done

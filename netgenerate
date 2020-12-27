@@ -1,0 +1,40 @@
+#!/bin/zsh
+re='^[0-9]+$'
+if ! [[ $1 =~ $re ]] ; then
+	echo "Usage: $0 <number_of_nodes>"
+	exit 1
+fi
+
+if (( $1 < 1 )); then
+	echo number of nodes needs to be at least 1
+	exit 1
+elif (( $1 > 25 )); then
+	echo number of nodes cannot be more than 25
+	exit 1
+fi
+
+if [[ -e Node-* ]]; then rm -R Node-*; fi
+
+istanbul setup --num $1 --nodes --quorum --save --verbose > /dev/null
+
+echo "[" > static-nodes.json
+
+(( port = 30300 ))
+for (( i=0; i<$1; i++ )); do
+	string=\"enode://$(bootnode -nodekey $i/nodekey -writeaddress)@127.0.0.1:$port\?discport=0\"
+	if (( $i < $1 - 1 )); then
+		string="$string",
+	fi
+	echo $string >> static-nodes.json
+	(( port += 1 ))
+done
+
+echo "]" >> static-nodes.json
+
+for (( i=0; i<$1; i++ )); do
+	mkdir -p Node-$i/data
+	mv $i/nodekey Node-$i/data
+	rm -R $i
+	cp static-nodes.json Node-$i/data
+done
+

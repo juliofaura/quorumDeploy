@@ -1,0 +1,11 @@
+#!/bin/zsh
+(( port = 30300 ))
+(( rpcport = 22000 ))
+
+foreach i in Node-*; do
+	cd $i
+	PRIVATE_CONFIG=ignore geth --datadir data --nodiscover --istanbul.blockperiod 3 --syncmode full --mine --minerthreads 1 --verbosity 5 --networkid 2323 --rpc --rpcaddr 127.0.0.1 --rpcport $rpcport --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul --emitcheckpoints --port $port >& log &
+	(( port = port + 1 ))
+	(( rpcport = rpcport + 1 ))
+	cd ..
+done

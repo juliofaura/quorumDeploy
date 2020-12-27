@@ -1,0 +1,2 @@
+#!/bin/zsh
+geth attach Node-0/data/geth.ipc

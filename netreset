@@ -1,0 +1,6 @@
+#!/bin/zsh
+pkill geth
+foreach i in Node-*; do
+	rm $i/log
+	rm -R $i/data/geth
+done
