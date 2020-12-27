@@ -25,7 +25,7 @@ cd
 First, create a directory where the nodes are going to be generated, e.g. in ```~/Ethereum```
 
 ```
-mkdir -P ~/Ethereum
+mkdir -p ~/Ethereum
 cd !$
 ```
 
@@ -82,6 +82,21 @@ at block: 447 (Sun, 27 Dec 2020 20:45:09 CET)
 > eth.blockNumber
 7
 ```
+
+# Stopping the network
+
+You can stop the network with a simple ```pkill``` command:
+
+```
+pkill geth
+```
+
+The network can be restarted by using again the ```netlaunch``` command. It will pick it up from the last block it was mined
+
+```
+quorumDeploy/netlaunch
+```
+
 
 # Resetting the network
 
