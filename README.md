@@ -2,6 +2,8 @@
 
 A repository to quickly configure and deploy quorum networks (with the Istanbul consensus algorithm)
 
+Essentially the same instructions as in <https://docs.goquorum.consensys.net/en/stable/Tutorials/Create-IBFT-Network/>
+
 # Pre-requisites
 
 Golang should be installed in the system, and ```$GOPATH/bin``` should be in the ```$PATH```
